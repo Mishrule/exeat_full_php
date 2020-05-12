@@ -239,6 +239,7 @@ $(document).ready(function() {
             return false;
         }
     });
+
     $(document).on('click', '.close', function() {
         location.reload();
     })

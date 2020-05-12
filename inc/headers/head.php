@@ -16,7 +16,7 @@
         <link href="././css/style.css" rel="stylesheet">
         <link href="././css/fontawesome.min.css" rel="stylesheet">
         <link href="././css/all.min.css" rel="stylesheet">
-        
+        <link rel="icon" href="././img/ico.jpg" type="image/jpg" sizes="16x16">
 
         </head>
     ';

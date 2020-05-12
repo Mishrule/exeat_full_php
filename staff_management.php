@@ -11,11 +11,11 @@
         <!-- Navbar -->
         <?php require_once('inc/headers/nav.php'); ?>
         <!-- Navbar -->
-
+        <div class="StaffShow"></div>
         <!-- Sidebar -->
         <div class="sidebar-fixed position-fixed">
 
-             <?php require_once('inc/headers/brand.php'); ?>
+            <?php require_once('inc/headers/brand.php'); ?>
 
             <div class="list-group list-group-flush">
                 <a href="dashboard.php" class="list-group-item  waves-effect">
@@ -75,7 +75,7 @@
                                     <form method="POST">
                                         <div style="text-align:center;">SEARCH</div>
                                         <input type="text" id="manageStaffSearch" class="form-control"
-                                            name="manageStaffSearch" placeholder="Search by Name or Student ID" />
+                                            name="manageStaffSearch" placeholder="Search by Name or Staff ID" />
                                     </form>
                                 </div>
                                 <div class="col-sm-3">
@@ -160,7 +160,7 @@ $(document).ready(function() {
     })
     //===============================================|SEARCH TEXT
     $('#manageStaffSearch').keyup(function() {
-        // var student_manage_lim = $('#staff_manage_limit').val();
+        // var Staff_manage_lim = $('#staff_manage_limit').val();
         var keysearch = $('#manageStaffSearch').val();
         $.ajax({
             url: 'inc/scripts/staffRegistrationScript.php',
@@ -173,5 +173,137 @@ $(document).ready(function() {
             }
         })
     })
+    // ===============================================| SET UPDATE
+    $(document).on('click', '.edit', function() {
+        var staffID = $(this).attr('id');
+
+        $.ajax({
+            url: 'inc/scripts/staffRegistrationScript.php',
+            method: 'POST',
+            dataType: 'json',
+            data: {
+                staffID
+            },
+
+            success: function(data) {
+                $('#Staff_ID').val(data.Staff_ID);
+                $('#Staff_name').val(data.Staff_name);
+                $('#Staff_position').val(data.Staff_position);
+                $('#staffContact').val(data.staffContact);
+                // console.log(data);
+            }
+        })
+    })
+    // =======================================| UPDATE Staff RECORDS
+
+    $(document).on('click', '#updateStaff', function() {
+        var updateStaffId = $('#Staff_ID').val();
+        var updateStaffName = $('#Staff_name').val();
+        var updateStaffPosition = $('#Staff_position').val();
+        var updateStaffContact = $('#staffContact').val();
+        var updateStaff = $('#updateStaff').val();
+        if (confirm(`You are about to make changes to ${updateStaffName} Records`)) {
+            $.ajax({
+                url: 'inc/scripts/staffRegistrationScript.php',
+                method: 'POST',
+                data: {
+                    updateStaffId,
+                    updateStaffName,
+                    updateStaffPosition,
+                    updateStaffContact,
+                    updateStaff
+                },
+                success: function(data) {
+                    $('.StaffShow').html(data);
+
+                }
+            })
+        } else {
+            return false;
+        }
+    });
+    // ============================| Reload |
+    $(document).on('click', '.close', function() {
+        location.reload();
+    })
+
+    // ==========================| DELETE STAFF
+    $(document).on('click', '.del', function() {
+        var delid = $(this).attr('id');
+
+        if (confirm(`Are you sure you want to delete student ID ${delid} records`)) {
+            $.ajax({
+                url: 'inc/scripts/StaffRegistrationScript.php',
+                method: 'POST',
+                data: {
+                    delid
+                },
+                success: function(data) {
+                    $('.studentShow').html(data);
+                }
+            })
+        } else {
+            return false;
+        }
+    });
+
 })
 </script>
+
+<div class="modal fade" id="managestaff" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+    data-backdrop="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">UPDATE STAFF RECORDS</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST">
+                    <legend align="center">UPDATE STAFF</legend>
+                    <div class="StaffShow"></div>
+                    <div class="form-group row">
+                        <label for="Staff_ID" class="col-sm-2 col-form-label">Staff ID</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" disabled id="Staff_ID" name="Staff_ID">
+                            <small id="infoStaffID" class="form-text" style="color:red"></small>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="Staff_name" class="col-sm-2 col-form-label">Staff Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="Staff_name" name="Staff_name">
+                            <small id="infoStaffName" class="form-text"></small>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="Staff_position" class="col-sm-2 col-form-label">Staff Position</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="Staff_position" name="Staff_position">
+                            <small id="infoStaffposition" class="form-text"></small>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="staffContact" class="col-sm-2 col-form-label">Staff Contact</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="staffContact" name="staffContact">
+                            <small id="infoStaffContact" class="form-text"></small>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="StaffShow"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="updateStaff" name="updateStaff" value="updateStaff"
+                    class="btn btn-primary">Update Staff</button>
+            </div>
+        </div>
+    </div>
+</div>

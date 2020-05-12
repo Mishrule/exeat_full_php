@@ -22,44 +22,22 @@
         move_uploaded_file($_FILES['staff_image']['tmp_name'], $target);
         if($staffRegistrationResult){
             $staffRegShow .= '
-                <!-- Flexbox container for aligning the toasts -->
-                    <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
-
-                    <!-- Then put toasts within -->
-                    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="10000">
-                        <div class="toast-header">
-                        <strong class="mr-auto">Success</strong>
-                        <small>'.$dateTime.'</small>
-                        <button type="button" class="ml-12 mb-12 close" data-dismiss="toast" aria-label="Close">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>'.$staffname.'</strong>\'s  is registered successfully @ '.$dateTime.'.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        </div>
-                        <div class="toast-body">
-                            '.$staffname.' is registered successfully.
-                        </div>
-                    </div>
                     </div>
             ';
            
         }else{
             $staffRegShow .= '
-                <!-- Flexbox container for aligning the toasts -->
-                    <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
-
-                    <!-- Then put toasts within -->
-                    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="10000">
-                        <div class="toast-header">
-                        <strong class="mr-auto">FAILED</strong>
-                        <small>'.$dateTime.'</small>
-                        <button type="button" class="ml-12 mb-12 close" data-dismiss="toast" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-                        <div class="toast-body">
-                            '.mysqli_error($conn).' 
-                        </div>
-                    </div>
-                    </div>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>'.mysqli_error($conn).'</strong>\'s  Failed to Registered.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             ';
         }
                 
@@ -82,7 +60,7 @@
         <!-- Sidebar -->
         <div class="sidebar-fixed position-fixed">
 
-             <?php require_once('inc/headers/brand.php'); ?>
+            <?php require_once('inc/headers/brand.php'); ?>
 
             <div class="list-group list-group-flush">
                 <a href="dashboard.php" class="list-group-item  waves-effect">

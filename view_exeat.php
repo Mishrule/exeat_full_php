@@ -226,5 +226,50 @@ $(document).ready(function() {
         });
 
     });
+    // ===============================| View Print
+    $(document).on('click', '#viewSubmitBtn', function() {
+        var printExeat = document.getElementById('viewExeatTable');
+        var winkon = window.open('', '', 'width=900, height=650');
+        winkon.document.write(printExeat.outerHTML);
+        winkon.document.close();
+        winkon.focus();
+        winkon.print();
+        winkon.close();
+    });
+    // ================================| search Print
+    $(document).on('click', '#searchSubmitBtn', function() {
+        var searchprintExeat = document.getElementById('searchExeatTable');
+        var searchWinkon = window.open('', '', 'width=900, height=650');
+        searchWinkon.document.write(searchprintExeat.outerHTML);
+        searchWinkon.document.close();
+        searchWinkon.focus();
+        searchWinkon.print();
+        searchWinkon.close();
+
+    });
+
+    // ================================| Limit Print
+    $(document).on('click', '#limitSubmitBtn', function() {
+        var limitprintExeat = document.getElementById('limitExeatTable');
+        var limitWinkon = window.open('', '', 'width=900, height=650');
+        limitWinkon.document.write(limitprintExeat.outerHTML);
+        limitWinkon.document.close();
+        limitWinkon.focus();
+        limitWinkon.print();
+        limitWinkon.close();
+
+    });
+
+    // ================================| Status Print
+    $(document).on('click', '#statusSubmitBtn', function() {
+        var statusprintExeat = document.getElementById('statusExeatTable');
+        var statusWinkon = window.open('', '', 'width=900, height=650');
+        statusWinkon.document.write(statusprintExeat.outerHTML);
+        statusWinkon.document.close();
+        statusWinkon.focus();
+        statusWinkon.print();
+        statusWinkon.close();
+
+    });
 })
 </script>

@@ -1,7 +1,7 @@
 <?php 
     require_once('exeatdb.php');
-    //========================================= MANAGE STUDENT ===================================================
-    //                                          MANAGE STUDENT
+    //========================================= MANAGE Staff ===================================================
+    //                                          MANAGE Staff
     //=============================================================================================================
         $manageStaffFetchShow = '';
     if(isset($_POST['select'])){
@@ -34,8 +34,8 @@
                         <td>'.$manageStaffFetchRow['staff_position'].'</td>
                         <td>'.$manageStaffFetchRow['staff_contact'].'</td>
                         <td>'.$manageStaffFetchRow['registration_date'].'</td>
-                        <td><i class="fas fa-edit ml-1 edit" style="color:blue" id="'.$manageStaffFetchRow['stf_id'].'"></i>
-                        <i class="fas fa-trash ml-1 del" style="color:red" id="'.$manageStaffFetchRow['stf_id'].'"></i>
+                        <td><i class="fas fa-edit ml-1 edit" style="color:blue" id="'.$manageStaffFetchRow['stf_id'].'" name="edit"  data-toggle="modal" data-target="#managestaff"></i>
+                        <i class="fas fa-trash ml-1 del" style="color:red" id="'.$manageStaffFetchRow['stf_id'].'" name="del"></i>
                            
                         </td>
                     </tr>
@@ -96,7 +96,7 @@
         }else{
             $manageStaff_FetchLimitShow .= ' 
                 <tr>
-                    <td colspan="7"><marquee><span style="color:red">NO STUDENTS RECORDS FOUND</span></marquee></td>
+                    <td colspan="7"><marquee><span style="color:red">NO StaffS RECORDS FOUND</span></marquee></td>
                 </tr>
             ';
         }
@@ -148,7 +148,7 @@
         }else{
             $searcheStaffFetchLimitShow .= ' 
                 <tr>
-                    <td colspan="7"><marquee><span style="color:red">NO STUDENTS RECORDS FOUND</span></marquee></td>
+                    <td colspan="7"><marquee><span style="color:red">NO StaffS RECORDS FOUND</span></marquee></td>
                 </tr>
             ';
         }
@@ -182,8 +182,8 @@
                             <p>'.$individual_StaffFetchLimitRow['staff_contact'].'</p>
                             <p>'.$individual_StaffFetchLimitRow['registration_date'].'</p>
                             
-                            <p><i class="fas fa-edit ml-1 fa-lg edit" style="color:blue"  id="'.$individual_StaffFetchLimitRow['stf_id'].'"></i>
-                        <i class="fas fa-trash ml-2 fa-lg del" style="color:red" id="'.$individual_StaffFetchLimitRow['stf_id'].'"></i></p>
+                            <p>
+                        <i class="fas fa-trash ml-2 fa-lg del" name="del" style="color:red" id="'.$individual_StaffFetchLimitRow['stf_id'].'"></i></p>
                             
                         </div>
                     
@@ -201,5 +201,85 @@
         }
            
         echo $individual_StaffFetchLimitShow;
+    }
+
+    // ===================================| SET STAFF VALUES
+     $setUpdateArray = array();
+    if(isset($_POST['staffID'])){
+        $id = intval(mysqli_real_escape_string($conn, $_POST['staffID']));
+        $setUpdateSQL = "SELECT * FROM staff_registration WHERE stf_id = $id ";
+           
+        $setUpdateResult = mysqli_query($conn, $setUpdateSQL);
+        while($setUpdateRow = mysqli_fetch_array($setUpdateResult)){
+            $setUpdateArray['Staff_ID'] = $setUpdateRow['staff_id'];
+            $setUpdateArray['Staff_name'] = $setUpdateRow['staff_name'];
+            $setUpdateArray['Staff_position'] = $setUpdateRow['staff_position'];
+            $setUpdateArray['staffContact'] = $setUpdateRow['staff_contact'];
+           
+        }
+        echo json_encode($setUpdateArray);
+    }
+
+    // ====================================| UPDATE STAFF
+    // ======================================== UPDATE Staff
+    if(isset($_POST['updateStaff'])){
+        $updateStaffId = mysqli_real_escape_string($conn, $_POST['updateStaffId']);
+        $updateStaffName = mysqli_real_escape_string($conn, $_POST['updateStaffName']);
+        $updateStaffPosition = mysqli_real_escape_string($conn, $_POST['updateStaffPosition']);
+        $updateStaffContact = mysqli_real_escape_string($conn, $_POST['updateStaffContact']);
+        
+
+        $updateStaffSQL = "UPDATE staff_registration SET staff_name = '$updateStaffName', staff_position = '$updateStaffPosition', staff_contact = '$updateStaffContact' WHERE staff_id = '$updateStaffId'";
+
+        $updateStaffResult = mysqli_query($conn, $updateStaffSQL);
+        if($updateStaffResult){
+            echo '
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>'.$updateStaffId.'</strong>\'s  Records have been Updated Successfully.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            ';
+           
+        }else{
+            
+            echo '
+                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>'.$updateStaffId.'</strong>\'s  Failed to update Try again later'.mysqli_error($conn).' successfully.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            ';
+           
+        }
+    }
+
+     // ================================== DELETE STUDENT RECORD
+    if(isset($_POST['delid'])){
+        $delid =  mysqli_real_escape_string($conn, $_POST['delid']);
+        $delRecordSQL = "DELETE FROM staff_registration WHERE stf_id = '$delid'";
+        $delRecordResult = mysqli_query($conn, $delRecordSQL);
+
+        if($delRecordResult){
+             echo '
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>'.$delid.'</strong>\'s  Records have been Deleted Successfully.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            ';
+        }else{
+            echo '
+                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>'.$delid.'</strong>\'s  Failed to Delete Records Try again later'.mysqli_error($conn).' successfully.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            ';
+        }
     }
 ?>

@@ -106,7 +106,7 @@
 
        $exeat_limitResult = mysqli_query($conn, $exeat_limitSQL);
         $exeat_limitShow = '
-             <table class="table table-hover">
+             <table class="table table-hover " id="viewExeatTable">
                 <thead class="blue lighten-4">
                  <tr>
                      <th>S/N</th>
@@ -150,7 +150,7 @@
                     </body>
                 </table>
                 <div align="center">
-                   <button type="button" name="submitBtn" id="submitBtn" value="submitBtn" class="btn btn-primary col-md-6 submitBtn">PRINT EXEAT REPORT</button>
+                   <button type="button" name="viewSubmitBtn" id="viewSubmitBtn" value="viewSubmitBtn" class="btn btn-primary col-md-6 viewSubmitBtn">PRINT EXEAT REPORT</button>
                  </div>
             ';
         echo $exeat_limitShow;
@@ -164,7 +164,7 @@
 
        $exeat_searchTextResult = mysqli_query($conn, $exeat_searchTextSQL);
         $exeat_searchTextShow = '
-             <table class="table table-hover">
+             <table class="table table-hover" id="searchExeatTable">
                 <thead class="blue lighten-4">
                  <tr>
                      <th>S/N</th>
@@ -208,7 +208,7 @@
                     </body>
                 </table>
                  <div align="center">
-                   <button type="button" name="submitBtn" id="submitBtn" value="submitBtn" class="btn btn-primary col-md-6 submitBtn">PRINT EXEAT REPORT</button>
+                   <button type="button" name="searchSubmitBtn" id="searchSubmitBtn" value="searchSubmitBtn" class="btn btn-primary col-md-6 searchSubmitBtn">PRINT EXEAT REPORT</button>
                  </div>
             ';
         echo $exeat_searchTextShow;
@@ -222,7 +222,7 @@
 
        $exeat_returnResult = mysqli_query($conn, $exeat_returnSQL);
         $exeat_returnShow = '
-             <table class="table table-hover">
+             <table class="table table-hover" id="statusExeatTable">
                 <thead class="blue lighten-4">
                  <tr>
                      <th>S/N</th>
@@ -266,7 +266,7 @@
                     </body>
                 </table>
                  <div align="center">
-                   <button type="button" name="submitBtn" id="submitBtn" value="submitBtn" class="btn btn-primary col-md-6 submitBtn">PRINT EXEAT REPORT</button>
+                   <button type="button" name="statusSubmitBtn" id="statusSubmitBtn" value="statusSubmitBtn" class="btn btn-primary col-md-6 statusSubmitBtn">PRINT EXEAT REPORT</button>
                  </div>
             ';
         echo $exeat_returnShow;
@@ -280,7 +280,7 @@
 
        $exeat_limit_searchResult = mysqli_query($conn, $exeat_limit_searchSQL);
         $exeat_limit_searchShow = '
-             <table class="table table-hover">
+             <table class="table table-hover" id="limitExeatTable">
                 <thead class="blue lighten-4">
                  <tr>
                      <th>S/N</th>
@@ -324,7 +324,7 @@
                     </body>
                 </table>
                  <div align="center">
-                   <button type="button" name="submitBtn" id="submitBtn" value="submitBtn" class="btn btn-primary col-md-6 submitBtn">PRINT EXEAT REPORT</button>
+                   <button type="button" name="limitSubmitBtn" id="limitSubmitBtn" value="limitSubmitBtn" class="btn btn-primary col-md-6 limitSubmitBtn">PRINT EXEAT REPORT</button>
                  </div>
             ';
         echo $exeat_limit_searchShow;

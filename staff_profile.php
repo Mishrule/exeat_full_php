@@ -15,7 +15,7 @@
         <!-- Sidebar -->
         <div class="sidebar-fixed position-fixed">
 
-             <?php require_once('inc/headers/brand.php'); ?>
+            <?php require_once('inc/headers/brand.php'); ?>
 
             <div class="list-group list-group-flush">
                 <a href="dashboard.php" class="list-group-item  waves-effect">
@@ -147,6 +147,28 @@ $(document).ready(function() {
                 $('#searchIndividual').html(data);
             }
         })
-    })
+    });
+    // ============================= DELETE
+    $(document).on('click', '.del', function() {
+        var delid = $(this).attr('id');
+
+        if (confirm(`Are you sure you want to delete student ID ${delid} records`)) {
+            $.ajax({
+                url: 'inc/scripts/StaffRegistrationScript.php',
+                method: 'POST',
+                data: {
+                    delid
+                },
+                success: function(data) {
+                    $('.studentShow').html(data);
+                    setTimeout(() => {
+                        location.reload();
+                    }, 3000);
+                }
+            })
+        } else {
+            return false;
+        }
+    });
 })
 </script>
